@@ -101,5 +101,13 @@ def new_post():
     return render_template("make-post.html", form=form)
 
 
+@app.route("/delete/<post_id>")
+def delete(post_id):
+    post = BlogPost.query.get(post_id)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('get_all_posts'))
+
+
 if __name__ == "__main__":
     app.run(debug=True)
